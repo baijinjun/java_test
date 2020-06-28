@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.exam.dao.AccountMapper">
+    <insert id="add" keyProperty="uid">
+        <choose>
+            <when test="studentId != null">
+                INSERT INTO `account`(`email`, `password`, `name`, `usertype`, `student_id`) VALUES (#{email},#{password},#{name},#{usertype} , #{studentId})
+            </when>
+            <otherwise>
+                INSERT INTO `account`(`email`, `password`, `name`, `usertype`) VALUES (#{email},#{password},#{name},#{usertype} )
+            </otherwise>
+        </choose>
+    </insert>
+</mapper>

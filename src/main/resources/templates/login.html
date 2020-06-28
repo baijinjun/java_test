@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title th:text="${pageName} + ' | 登录'">AdminLTE 3 | Log in</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <!--style>
+    body{
+      font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei" ,sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+  </style-->
+  <link rel="stylesheet" th:href="@{~/dist/css/my.css}">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="/" th:utext="${pageNameHtml}"><b>Admin</b>LTE</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg" id="login-box-msg">登录以继续</p>
+
+      <form id="login-form">
+        <div class="input-group mb-3">
+          <input name="email" type="email" class="form-control" placeholder="邮箱">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input name="password" type="password" class="form-control" placeholder="密码">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- /.col -->
+          <div class="col-8">
+            <button type="button" class="btn btn-primary btn-block">登录</button>
+          </div>
+          <!-- /.col -->
+          <div class="mb-0" style="float: right;  line-height: 38px; display: inline-block;">
+            <a href="/register" class="text-center">新用户注册</a>
+          </div>
+        </div>
+      </form>
+
+
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+
+<script>
+  let emailJq = $("#login-form [name=email]");
+  let passwordJq = $("#login-form [name=password]");
+  let msgJq = $('#login-box-msg');
+
+  $("#login-form button").click(function () {
+
+    let email = emailJq.val();
+    let password = passwordJq.val();
+
+    if(password === '' ){
+      $(passwordJq).addClass("is-invalid");
+    }
+    else{
+      if(checkEmail(emailJq)){
+        let url = "/account/login";
+        let dataObj = {
+          email: email,
+          password: password
+        };
+        $.post(url, dataObj, function (jsonObject) {
+          if (jsonObject.hasOwnProperty('code')) {
+            if (jsonObject.code === 0) {
+              location.replace('/');
+            }
+            else if (jsonObject.code === 1) {
+              msgJq.addClass('text-danger');
+              msgJq.text('用户名或密码错误！');
+            }
+            else{
+              msgJq.removeClass('text-danger');
+              msgJq.addClass('text-info');
+              msgJq.text('登录出错，请稍后再试');
+            }
+          }
+        });
+      }
+    }
+  });
+
+  emailJq.change(function(){
+    checkEmail($(this));
+  });
+  passwordJq.change(function(){
+    if($(this).val() !== '')
+      $(this).removeClass("is-invalid");
+  });
+
+  emailJq.blur(function(){
+    checkEmail($(this));
+  });
+
+  emailJq.focus(function(){
+    checkEmail($(this));
+  });
+
+  function checkEmail(jqObj){
+    let value = jqObj.val();
+    if( value === '' || !(/^\w+([-.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value)) ){
+      jqObj.addClass("is-invalid");
+      return false;
+    }
+    else{
+      jqObj.removeClass("is-invalid");
+      return true;
+    }
+  }
+</script>
+</body>
+</html>

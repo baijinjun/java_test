@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="components/basic">
+<head>
+  <title th:text="${site.siteName + ' | ' + page.pageTitle}">AdminLTE 3 | DataTables</title>
+
+  <!-- DataTables -->
+  <link rel="stylesheet" th:href="@{~/plugins/datatables-bs4/css/dataTables.bootstrap4.css}">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" th:href="@{~/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css}">
+  <!-- Buttons -->
+  <link rel="stylesheet" th:href="@{~/plugins/buttons/buttons.css}">
+  <link rel="stylesheet" th:href="@{~/dist/css/my.css}">
+</head>
+<body>
+<div class="wrapper">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+
+          <div class="col-sm-6">
+            <h1 layout:fragment="page-content-header-title" th:text="${page.pageTitle}">DataTables</h1>
+          </div>
+
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right" layout:fragment="page-content-header-thispath">
+              <li class="breadcrumb-item"><a href="#" th:href="@{~/}">首页</a></li>
+              <li class="breadcrumb-item active" th:text="${page.pageTitle}">DataTables</li>
+            </ol>
+          </div>
+
+    </section>
+
+    <!-- Main content -->
+    <section class="content" layout:fragment="main-content">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title" id="theTableCardTitle" th:text="${page.tableTitle}">DataTable with minimal features & hover style</h3>
+
+              <div style="float:right">
+                <button class="button button-primary button-small my-slim-button" onclick="showAddMenu()"><i class="fa fa-plus-square"></i> 增加记录</button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="theTable" class="table table-bordered table-hover">
+
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <!--Modal and Toasts -->
+
+      <!-- danger Model -->
+      <div class="modal fade" id="modal-danger">
+        <div class="modal-dialog">
+          <div class="modal-content bg-danger">
+            <div class="modal-header">
+              <h4 class="modal-title">Danger Modal</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-outline-light">确认</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">取消</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.danger modal -->
+
+      <!-- Edit Modal -->
+      <div class="modal fade" id="modal-edit">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">编辑数据</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="editForm"></form>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              <button type="button" class="btn btn-primary">提交修改</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.Edit modal -->
+
+      <!-- Add Modal -->
+      <div class="modal fade" id="modal-add">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">添加记录</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="addForm"></form>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              <button type="button" class="btn btn-primary">提交</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.Add modal -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+</div>
+<!-- ./wrapper -->
+
+
+<th:block layout:fragment="add-js">
+<!-- DataTables -->
+<script src="../../plugins/datatables/jquery.dataTables.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<!-- SweetAlert2 -->
+<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- InputMask -->
+<script src="../../plugins/moment/moment.min.js"></script>
+<script src="../../plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+<!-- date-range-picker -->
+<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+<!-- page script -->
+  <script th:src="@{~/dist/js/{jslink}(jslink=${pagejs})}"></script>
+
+</th:block>
+</body>
+</html>

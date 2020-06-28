@@ -1,0 +1,34 @@
+@font-face{
+    font-family: 'HYQiHei';
+    src: local('HYQiHei 50S');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'HYQiHei';
+    src: local('HYQiHei 80S');
+    font-weight: bold;
+    font-style: normal;
+}
+
+body{
+    font-family: "Source Sans Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",'HYQiHei','微软雅黑';
+}
+
+.row-button-div {
+    display: inline-block;
+    padding: 0 0.2em;
+}
+
+.my-select{
+    width: auto;
+    display: inline-block;
+    border-radius: 0 !important;
+    box-shadow: none;
+}
+.my-slim-button{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom:0.1rem;
+}
